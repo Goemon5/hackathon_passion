@@ -27,14 +27,20 @@ func (s *sqlHandler) CreateUserProfile(user *entity.User) (*entity.User, error) 
 	stmt, err := tx.PrepareNamed(`
 	INSERT INTO users 
 	(
-		id,
+		name,
 		email,
-		name
+		gender,
+		fan_history,
+		fav_song,
+		applying
 		) VALUES
 		(
-			:id,
+			:name,
 			:email,
-			:name)
+			:gender
+			:fan_history
+			:fav_song
+			:applying)
 			`)
 	if err != nil {
 		return nil, err
