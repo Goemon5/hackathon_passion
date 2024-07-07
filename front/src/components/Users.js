@@ -1,27 +1,58 @@
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-import React from 'react';
+function Users({ users }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
+  const handleShowModal = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
+  };
 
-
-function Users() {
-  // ダミーデータ
-  const userCards = Array.from({ length: 10 });
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
 
   return (
     <div className="container mt-5">
-      {userCards.map((_, index) => (
+      {users.map((user, index) => (
         <div className="card mb-4 mx-auto" key={index} style={{ width: '50%' }}>
-          <h5 className="card-header">Featured</h5>
+          <h5 className="card-header">{user.name}</h5>
           <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
+            <h5 className="card-title">{user.email}</h5>
+            <p className="card-text">{user.gender}</p>
+            <Button onClick={() => handleShowModal(user)}>Show Details</Button>
           </div>
         </div>
       ))}
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <>
+              <p><strong>Name:</strong> {selectedUser.name}</p>
+              <p><strong>Email:</strong> {selectedUser.email}</p>
+              <p><strong>Gender:</strong> {selectedUser.gender}</p>
+              <p><strong>Fan History:</strong> {selectedUser.fan_history}</p>
+              <p><strong>Favorite Song:</strong> {selectedUser.fav_song}</p>
+              <p><strong>Favorite Artist:</strong> {selectedUser.artist}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
 
 export default Users;
-

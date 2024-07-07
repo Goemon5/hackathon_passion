@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "ねこ",
+      "email": "cat@example.com",
+      "gender": "female",
+      "fan_history": "3 years",
+      "fav_song": "Song A",
+      "artist": "BUMP OF CHICKEN"
+    },
+    {
+      "id": 2,
+      "name": "いぬ",
+      "email": "dog@example.com",
+      "gender": "male",
+      "fan_history": "1 year",
+      "fav_song": "Song B",
+      "artist": "米津玄師"
+    },
+    {
+      "id": 3,
+      "name": "うさぎ",
+      "email": "rabbit@example.com",
+      "gender": "male",
+      "fan_history": "5 years",
+      "fav_song": "Song C",
+      "artist": "RADWIMPS"
+    }
+  ]
+  
