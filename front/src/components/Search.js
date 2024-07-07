@@ -1,37 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Users from './Users';
+
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function Search() {
-  const [users, setUsers] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    // ローカルAPIからユーザーデータを取得
-    fetch('/api/users.json')
-      .then(response => response.json())
-      .then(data => setUsers(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
-
-  const handleSearch = (e) => {
+function Search({ query, setQuery, handleSearch }) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const results = users.filter(user =>
-      user.name.toLowerCase().includes(query.toLowerCase()) || 
-      user.email.toLowerCase().includes(query.toLowerCase()) || 
-      user.gender.toLowerCase().includes(query.toLowerCase()) || 
-      user.fan_history.toLowerCase().includes(query.toLowerCase()) || 
-      user.fav_song.toLowerCase().includes(query.toLowerCase()) || 
-      user.artist.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(results);
+    handleSearch(query);
   };
 
   return (
     <div className="container mt-5">
-      <Form onSubmit={handleSearch}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="searchQuery">
           <Form.Label>Search Users</Form.Label>
           <Form.Control
@@ -45,10 +25,9 @@ function Search() {
           Search
         </Button>
       </Form>
-
-      {searchResults.length > 0 && <Users users={searchResults} />}
     </div>
   );
 }
 
 export default Search;
+

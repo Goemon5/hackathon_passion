@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-function Users() {
-  const [users, setUsers] = useState([]);
+function Users({ users }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -16,14 +16,6 @@ function Users() {
     setShowModal(false);
     setSelectedUser(null);
   };
-
-  useEffect(() => {
-    // ローカルAPIからユーザーデータを取得
-    fetch('/api/users.json')
-      .then(response => response.json())
-      .then(data => setUsers(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
 
   return (
     <div className="container mt-5">
