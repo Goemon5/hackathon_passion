@@ -1,10 +1,11 @@
 
-
+/*/src/form/Form.tsx*/
 
 import React from "react";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { Link } from 'react-router-dom';
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -34,11 +35,18 @@ const Form = () => {
 
   return (
     <>
+    <div className="text-center mt-5 mb-5">
+        <Link to="/">
+          <Button variant="secondary" >Home</Button>
+        </Link>
+      </div>
+
       {isSubmitted ? (
         <div className="text-center mt-5">
           <h2>送信が完了しました</h2>
         </div>
       ) : (
+        
         <form
           onSubmit={handleSubmit}
           className="p-4 border rounded shadow-sm"
@@ -117,6 +125,9 @@ const Form = () => {
           </Button>
         </form>
       )}
+
+      
+
     </>
   );
 };

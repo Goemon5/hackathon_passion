@@ -5,7 +5,7 @@ import Form from "./components/form/Form.tsx";
 import Search from './components/Search';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes,Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 function App() {
@@ -36,20 +36,36 @@ function App() {
   };
 
   return (
+  /*
     <Router>
       <div className="App">
         <Search query={query} setQuery={setQuery} handleSearch={handleSearch} />
-        {/* 
-          <Link to="/form">
-            <Button variant="primary" className="my-3">Go to Form</Button>
-          </Link>
-        */}
         <Users users={searchResults} />
-        <Routes>
-          <Route path="/form" element={<Form />} />
-        </Routes>
       </div>
     </Router>
+
+    */
+
+    <Router>
+    <div className="App">
+     
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Search query={query} setQuery={setQuery} handleSearch={handleSearch} />
+          <div className="mt-3">
+            
+          </div>
+            <Users users={searchResults} />
+            
+          </>
+        } />
+        <Route path="/form" element={<Form />} />
+      </Routes>
+  
+    </div>
+  </Router>
+
   );
 }
 

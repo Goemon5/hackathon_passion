@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route, Routes,Link } from 'react-router-dom';
 
 function Users({ users }) {
   const [showModal, setShowModal] = useState(false);
@@ -18,7 +19,12 @@ function Users({ users }) {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-100">
+      
+      <div className="content">
+      <Link to="/form">
+              <Button variant="primary" className="my-3">Form</Button>
+            </Link>
       {users.map((user, index) => (
         <div className="card mb-4 mx-auto" key={index} style={{ width: '50%' }}>
           <h5 className="card-header">{user.name}</h5>
@@ -52,6 +58,7 @@ function Users({ users }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </div>
     </div>
   );
 }
