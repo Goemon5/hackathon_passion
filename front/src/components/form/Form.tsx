@@ -1,5 +1,10 @@
+
+
+
 import React from "react";
 import { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -24,18 +29,19 @@ const Form = () => {
     e.preventDefault();
     console.log("Form Data:", formData);
     setIsSubmitted(true);
-    // ここにフォームデータを送信する処理を追加します
+    // ここにフォームデータを送信する処理を追加
   };
 
   return (
     <>
       {isSubmitted ? (
-        <div>
+        <div className="text-center mt-5">
           <h2>送信が完了しました</h2>
         </div>
       ) : (
         <form
           onSubmit={handleSubmit}
+          className="p-4 border rounded shadow-sm"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -43,40 +49,40 @@ const Form = () => {
             width: "50%",
             marginLeft: "auto",
             marginRight: "auto",
+            backgroundColor: "#f8f9fa", 
           }}
         >
-          <div style={{ width: "70%" }}>
-            <label htmlFor="name">Name:</label>
+          <h3 className="mb-4">form</h3>
+          <div className="mb-3 w-100">
+            <label htmlFor="name" className="form-label">Name:</label>
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              style={{ width: "100%" }}
+              className="form-control"
             />
           </div>
-          <div style={{ width: "100%" }}>
-            <label htmlFor="email">Email:</label>
+          <div className="mb-3 w-100">
+            <label htmlFor="email" className="form-label">Email:</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              style={{ width: "100%" }}
+              className="form-control"
             />
           </div>
-          <div style={{ width: "100%" }}>
-            <label htmlFor="gender">Gender:</label>
+          <div className="mb-3 w-100">
+            <label htmlFor="gender" className="form-label">Gender:</label>
             <select
               name="gender"
               id="gender"
-              className="form-select form-select-sm"
-              aria-label=".form-select-sm example"
+              className="form-select"
               value={formData.gender}
               onChange={handleChange}
-              style={{ width: "100%", border: "1px solid black" }}
             >
               <option value="" disabled>
                 性別を選択してください
@@ -86,34 +92,35 @@ const Form = () => {
               <option value="その他">その他</option>
             </select>
           </div>
-          <div style={{ width: "100%" }}>
-            <label htmlFor="history">ファンになってから何年経ちますか？</label>
+          <div className="mb-3 w-100">
+            <label htmlFor="fan_history" className="form-label">ファンになってから何年経ちますか？</label>
             <textarea
               id="fan_history"
               name="fan_history"
               value={formData.fan_history}
               onChange={handleChange}
-              style={{ width: "100%" }}
+              className="form-control"
             ></textarea>
           </div>
-          <div style={{ width: "100%" }}>
-            <label htmlFor="fav_song">お気に入りの曲を教えてください</label>
+          <div className="mb-3 w-100">
+            <label htmlFor="fav_song" className="form-label">お気に入りの曲を教えてください</label>
             <textarea
               id="fav_song"
               name="fav_song"
               value={formData.fav_song}
               onChange={handleChange}
-              style={{ width: "100%" }}
+              className="form-control"
             ></textarea>
           </div>
-
-          <button type="submit" style={{ marginTop: "10px" }}>
+          <Button variant="primary" type="submit" className="mt-3">
             Submit
-          </button>
+          </Button>
         </form>
       )}
-      ;
     </>
   );
 };
+
 export default Form;
+
+
