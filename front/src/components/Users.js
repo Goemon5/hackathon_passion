@@ -40,7 +40,7 @@ function Users() {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>User Details</Modal.Title>
+          <Modal.Title>Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedUser && (
