@@ -40,8 +40,8 @@ func (s *sqlHandler) CreateUserProfile(user *entity.User) (*entity.User, error) 
 			:gender
 			:fan_history
 			:fav_song
-			:applying)
-			`)
+			:applying
+		)`)
 	if err != nil {
 		return nil, err
 	}
@@ -64,4 +64,12 @@ func (s *sqlHandler) CreateUserProfile(user *entity.User) (*entity.User, error) 
 	}
 
 	return user, nil
+
+	func (s *sqlHandler) GetAllUserProfiles() ([]*entity.User, error) {
+		var users []*entity.User
+		err := s.db.Select(&users, "SELECT * FROM users")
+		if err != nil {
+			return nil, fmt.Errorf("failed to get all user profiles: %v", err)
+		}
+		return users, nil
 }
