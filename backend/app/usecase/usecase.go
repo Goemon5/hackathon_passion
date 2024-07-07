@@ -9,7 +9,7 @@ import (
 )
 
 type Usecase interface {
-	GetUsers(ctx echo.Context) error
+	GetUsers(ctx echo.Context) ([]entity.User, error)
 	CreateUserProfile(user entity.User, ctx echo.Context) error
 }
 
@@ -21,20 +21,32 @@ func NewUsecase(sh infra.SqlHandler) Usecase {
 	return &usecase{sh}
 }
 
-func (u *usecase) GetUsers(ctx echo.Context) error {
+func (u *usecase) GetUsers(ctx echo.Context) ([]entity.User, error) {
+	userPtrs, err := u.sh.GetUsers()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get users: %v", err)
+	}
 
-	fmt.Println("GetUsers")
+	var users []entity.User
+	for _, userPtr := range userPtrs {
+		if userPtr != nil {
+			users = append(users, *userPtr)
+		}
+	}
 
-	return nil
+	return users, nil
 }
 
 func (u *usecase) CreateUserProfile(user entity.User, ctx echo.Context) error {
+	fmt.Printf("Received user data: %+v\n", user)
 
-	_, err := u.sh.CreateUserProfile(&user)
+	createdUser, err := u.sh.CreateUserProfile(&user)
 	if err != nil {
+		fmt.Println("User creation failed in usecase")
 		return err
 	}
 
+	fmt.Println(createdUser.Name)
+	fmt.Println("User creation succeeded in usecase")
 	return nil
-
 }

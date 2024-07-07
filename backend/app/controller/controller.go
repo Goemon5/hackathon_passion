@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"recochoku/hackathon_passion/backend/app/entity"
 	"recochoku/hackathon_passion/backend/app/usecase"
@@ -22,7 +23,17 @@ func NewController(c usecase.Usecase) Controller {
 }
 
 func (c *controller) GetUsers(ctx echo.Context) error {
-	return c.u.GetUsers(ctx)
+
+	users, err := c.u.GetUsers(ctx)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	for _, user := range users {
+		fmt.Println(user)
+	}
+
+	return ctx.JSON(http.StatusOK, users)
 }
 
 func (c *controller) CreateUserProfile(ctx echo.Context) error {
@@ -34,8 +45,8 @@ func (c *controller) CreateUserProfile(ctx echo.Context) error {
 
 	res := c.u.CreateUserProfile(user, ctx)
 
-	if err := res; err != nil {
-		return ctx.JSON(http.StatusBadRequest, err.Error())
+	if res != nil {
+		return ctx.JSON(http.StatusBadRequest, res.Error())
 	}
 
 	return ctx.JSON(http.StatusOK, res)
